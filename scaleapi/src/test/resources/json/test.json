@@ -1,0 +1,23 @@
+[
+    {
+        "scale_id": "bsg_768",
+        "truck_id": "trckOTK838",
+        "weight": 1120,
+        "unit": "kg",
+        "time": "2021-06-14T12:23:45"
+    },
+    {
+        "scale_id": "bsg_769",
+        "truck_id": "trckEOO725",
+        "weight": 6,
+        "unit": "ton",
+        "time": "2021-06-19T14:23:45"
+    },
+    {
+        "scale_id": "bsg_768",
+        "truck_id": "trckEOO725",
+        "weight": 923,
+        "unit": "pound",
+        "time": "2021-06-19T14:23:45"
+    }
+]

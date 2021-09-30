@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.xsammak.demos</groupId>
@@ -28,12 +26,12 @@
 		<maven.compiler.showWarnings>true</maven.compiler.showWarnings>
 		<maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
 		<sonar.java.source>${java.version}</sonar.java.source>
-        <!-- Use UTF-8 -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!-- Use UTF-8 as default encoding for bytes to string conversion in tests -->
-        <argLine>-Dfile.encoding=UTF-8</argLine>
-        <failsafeArgLine>-Dfile.encoding=UTF-8</failsafeArgLine>
+		<!-- Use UTF-8 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- Use UTF-8 as default encoding for bytes to string conversion in tests -->
+		<argLine>-Dfile.encoding=UTF-8</argLine>
+		<failsafeArgLine>-Dfile.encoding=UTF-8</failsafeArgLine>
 		<commons-lang3.version>3.4</commons-lang3.version>
 		<hibernate-validator.version>6.0.2.Final</hibernate-validator.version>
 		<commons-collections.version>3.2.2</commons-collections.version>
@@ -69,16 +67,16 @@
 	</properties>
 
 	<!-- Import dependency management from Spring Boot -->
-    <!-- Needed if we are using custom parent pom -->
+	<!-- Needed if we are using custom parent pom -->
 	<dependencyManagement>
 		<dependencies>
-       		<dependency>
-        		<groupId>org.springframework.boot</groupId>
-        		<artifactId>spring-boot-dependencies</artifactId>
-        		<version>${spring-boot.version}</version>
-        		<type>pom</type>
-        		<scope>import</scope>
-      		</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -115,10 +113,10 @@
 			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -377,24 +375,24 @@
 				<configuration>
 					<excludes>
 						<exclude>**/constants/*</exclude>
-                        <exclude>**/*Constants.*</exclude>
+						<exclude>**/*Constants.*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
 					<execution>
-					  <id>pre-unit-test</id>
-					  <goals>
-						<goal>prepare-agent</goal>
-					  </goals>
+						<id>pre-unit-test</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
 					</execution>
 					<execution>
-					  <id>post-unit-test</id>
-					  <phase>test</phase>
-					  <goals>
-						<goal>report</goal>
-					  </goals>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
 					</execution>
-				  </executions>
+				</executions>
 			</plugin>
 
 			<plugin>
@@ -444,9 +442,4 @@
 			</resource>
 		</resources>
 	</build>
-
-	<scm>
-		<connection>scm:git:${scm.repository.base.url}/demos/scaleapi.git</connection>
-		<url>${scm.repository.base.url}/demos/scaleapi</url>
-	</scm>
 </project>
