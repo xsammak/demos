@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.xsammak.demos</groupId>
+	<artifactId>scaleapi</artifactId>
+	<version>${revision}</version>
+	<packaging>jar</packaging>
+	<description>Scale REST API demo.</description>
+
+	<name>Scale-API</name>
+
+	<properties>
+		<!-- Default revision value if not given in CI pipeline -->
+		<revision>1.0.0-SNAPSHOT</revision>
+		<!-- Class containing main method -->
+		<start-class>org.xsammak.demos.scaleapi.ScaleApiApplication</start-class>
+		<!-- Contains only private constructor, so no point in testing -->
+		<sonar.coverage.exclusions>
+			**/constants/*,**/*Constants.*
+		</sonar.coverage.exclusions>
+		<!-- Spring Boot way to define Java version -->
+		<java.version>1.8</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<maven.compiler.showWarnings>true</maven.compiler.showWarnings>
+		<maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
+		<sonar.java.source>${java.version}</sonar.java.source>
+        <!-- Use UTF-8 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- Use UTF-8 as default encoding for bytes to string conversion in tests -->
+        <argLine>-Dfile.encoding=UTF-8</argLine>
+        <failsafeArgLine>-Dfile.encoding=UTF-8</failsafeArgLine>
+		<commons-lang3.version>3.4</commons-lang3.version>
+		<hibernate-validator.version>6.0.2.Final</hibernate-validator.version>
+		<commons-collections.version>3.2.2</commons-collections.version>
+		<slf4j.version>1.7.25</slf4j.version>
+		<jackson.version>2.10.1</jackson.version>
+		<lombok.version>1.18.4</lombok.version>
+		<spring-boot.version>2.1.12.RELEASE</spring-boot.version>
+		<modelmapper.version>1.1.0</modelmapper.version>
+		<htmlunit-core-js.version>2.36.0</htmlunit-core-js.version>
+		<io.springfox.version>2.9.2</io.springfox.version>
+		<wiremock.version>2.14.0</wiremock.version>
+		<bean-matchers.version>0.11</bean-matchers.version>
+		<junit.version>4.12</junit.version>
+		<junitparams.version>1.1.1</junitparams.version>
+		<h2.version>1.4.196</h2.version>
+		<cucumber.version>2.0.1</cucumber.version>
+		<serenity-spring.version>1.6.6</serenity-spring.version>
+		<serenity-cucumber.version>1.5.15</serenity-cucumber.version>
+		<gson.version>2.8.2</gson.version>
+		<assertj-core.version>3.10.0</assertj-core.version>
+		<random-beans.version>3.7.0</random-beans.version>
+		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+		<maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
+		<build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
+		<maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+		<jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
+		<maven-site-plugin.version>3.7.1</maven-site-plugin.version>
+		<sonar-maven-plugin.version>3.6.0.1398</sonar-maven-plugin.version>
+		<maven-scm-plugin.version>1.9.5</maven-scm-plugin.version>
+		<versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
+		<maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
+		<scm.repository.base.url>https://xsammak</scm.repository.base.url>
+	</properties>
+
+	<!-- Import dependency management from Spring Boot -->
+    <!-- Needed if we are using custom parent pom -->
+	<dependencyManagement>
+		<dependencies>
+       		<dependency>
+        		<groupId>org.springframework.boot</groupId>
+        		<artifactId>spring-boot-dependencies</artifactId>
+        		<version>${spring-boot.version}</version>
+        		<type>pom</type>
+        		<scope>import</scope>
+      		</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate-validator.version}</version>
+		</dependency>
+		<!-- This is needed if entities use java.time.LocalDate types -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-java8</artifactId>
+			<version>5.4.21.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>${commons-collections.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+			<version>${lombok.version}</version>
+		</dependency>
+		<!-- Spring Boot framework -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>${spring-boot.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.hibernate.validator</groupId>
+					<artifactId>hibernate-validator</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!--
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+		<!-- Time OUT/IN JSON handling -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-json</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+		<!-- Maps data between DTO and Entity objects -->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>${modelmapper.version}</version>
+		</dependency>
+
+		<!-- We need following dependency otherwise we have java.lang.NoClassDefFoundError:
+		Could not initialize class com.gargoylesoftware.htmlunit.javascript.configuration.JavaScriptConfiguration
+		during starting integration tests.
+		The selenium-server:jar:3.5.3 contains net.sourceforge.htmlunit:htmlunit-core-js:jar:2.27
+		which is not valid during run of integration tests.
+		-->
+		<dependency>
+			<groupId>net.sourceforge.htmlunit</groupId>
+			<artifactId>htmlunit-core-js</artifactId>
+			<version>${htmlunit-core-js.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- REST API documentation -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${io.springfox.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${io.springfox.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-bean-validators</artifactId>
+			<version>${io.springfox.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<version>${spring-boot.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.tomakehurst</groupId>
+			<artifactId>wiremock</artifactId>
+			<version>${wiremock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.bean-matchers</groupId>
+			<artifactId>bean-matchers</artifactId>
+			<version>${bean-matchers.version}</version>
+			<scope>test</scope>
+			<!-- Older version excluded -->
+			<exclusions>
+				<exclusion>
+					<groupId>org.hamcrest</groupId>
+					<artifactId>hamcrest-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>pl.pragmatists</groupId>
+			<artifactId>JUnitParams</artifactId>
+			<version>${junitparams.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Using embedded database in testing -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${h2.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>junit</artifactId>
+					<groupId>junit</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-core</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.serenity-bdd</groupId>
+			<artifactId>serenity-spring</artifactId>
+			<version>${serenity-spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.serenity-bdd</groupId>
+			<artifactId>serenity-cucumber</artifactId>
+			<version>${serenity-cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.serenity-bdd</groupId>
+			<artifactId>serenity-junit</artifactId>
+			<version>${serenity-spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.serenity-bdd</groupId>
+			<artifactId>serenity-core</artifactId>
+			<version>${serenity-spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>${gson.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>${assertj-core.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.github.benas</groupId>
+			<artifactId>random-beans</artifactId>
+			<version>${random-beans.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<!-- Create JAR-file without versioin information -->
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot.version}</version>
+				<configuration>
+					<!-- Needs to be defined since we are not using spring-boot-starter-parent pom -->
+					<mainClass>${start-class}</mainClass>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+			</plugin>
+			<!-- For referencing maven properties in application.properties -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>${maven-resources-plugin.version}</version>
+			</plugin>
+			<!-- Set build timestamp based on timezone -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>${build-helper-maven-plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				<configuration>
+					<trimStackTrace>false</trimStackTrace>
+					<useSystemClassLoader>true</useSystemClassLoader>
+					<excludes>
+						<!-- Exclude integration tests -->
+						<exclude>**IntegrationTest**</exclude>
+					</excludes>
+					<systemProperties>
+						<!-- Use embedded database -->
+						<property>
+							<name>spring.profiles.active</name>
+							<value>emb</value>
+						</property>
+					</systemProperties>
+				</configuration>
+			</plugin>
+			<!-- Test coverage measurement -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-maven-plugin.version}</version>
+				<configuration>
+					<excludes>
+						<exclude>**/constants/*</exclude>
+                        <exclude>**/*Constants.*</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+					  <id>pre-unit-test</id>
+					  <goals>
+						<goal>prepare-agent</goal>
+					  </goals>
+					</execution>
+					<execution>
+					  <id>post-unit-test</id>
+					  <phase>test</phase>
+					  <goals>
+						<goal>report</goal>
+					  </goals>
+					</execution>
+				  </executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>${maven-site-plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>${sonar-maven-plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+				<version>${maven-scm-plugin.version}</version>
+				<configuration>
+					<tag>${project.artifactId}-${project.version}</tag>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>${versions-maven-plugin.version}</version>
+			</plugin>
+			<!-- Adding version information to JAR file so that Spring boot will log it at start-up. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>${maven-jar-plugin.version}</version>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Implementation-Title>${project.artifactId}</Implementation-Title>
+							<!-- NOTE: No line break allowed below -->
+							<Implementation-Version>${project.version}</Implementation-Version>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+		<!-- For referencing maven properties in application.properties -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+
+	<scm>
+		<connection>scm:git:${scm.repository.base.url}/demos/scaleapi.git</connection>
+		<url>${scm.repository.base.url}/demos/scaleapi</url>
+	</scm>
+</project>

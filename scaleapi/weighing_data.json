@@ -1,0 +1,16 @@
+[ {
+  "scaleId" : "bsg_768",
+  "truckId" : "trckOTK838",
+  "weightKg" : 1120,
+  "time" : "2021-06-14T12:23:45"
+}, {
+  "scaleId" : "bsg_769",
+  "truckId" : "trckEOO725",
+  "weightKg" : 6000,
+  "time" : "2021-06-19T14:23:45"
+}, {
+  "scaleId" : "bsg_768",
+  "truckId" : "trckEOO725",
+  "weightKg" : 419,
+  "time" : "2021-06-19T14:23:45"
+} ]

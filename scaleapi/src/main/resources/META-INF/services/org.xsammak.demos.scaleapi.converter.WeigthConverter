@@ -1,0 +1,3 @@
+org.xsammak.demos.scaleapi.converter.PoundWeigthConverter
+org.xsammak.demos.scaleapi.converter.MetricTonWeigthConverter
+org.xsammak.demos.scaleapi.converter.KgWeigthConverter
