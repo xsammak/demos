@@ -24,7 +24,7 @@ public class WeigthConverterFactory {
     }
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public class ConverterNotFoundException extends RuntimeException {
+    public static class ConverterNotFoundException extends RuntimeException {
         public ConverterNotFoundException(String message) {
             super(message);
         }
