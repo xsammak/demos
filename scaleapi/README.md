@@ -1,6 +1,6 @@
 # Scale REST API demo
 
-Simplpe Spring Boot application with two endpoints, one to import data and other to read it using filters.
+Simple Spring Boot application with two endpoints, one to import data and other to read it using filters.
 
 ## Building and running
 
